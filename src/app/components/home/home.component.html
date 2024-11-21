@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
+  <div class="container-fluid">
+    <img
+      [src]="
+        'https://static.vecteezy.com/system/resources/thumbnails/014/573/317/small_2x/cute-capybara-isolated-on-white-background-graphics-free-vector.jpg'
+      "
+      alt="User Avatar"
+      class="rounded-circle user-avatar"
+    />
+
+    <a class="navbar-brand fs-3" href="#">CapyImage</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+      <div class="d-flex align-items-center">
+        <!-- Mostrar nombre de usuario e imagen si está logueado -->
+        <span *ngIf="isUserLoggedIn" class="navbar-text me-3 fs-4">
+          {{ user?.nombre_usuario }}
+        </span>
+        <!-- Botones de Login y Logout -->
+        <button
+          *ngIf="!isUserLoggedIn"
+          class="btn btn-outline-success me-2 fs-4"
+          (click)="router.navigate(['/login'])"
+        >
+          Login
+        </button>
+        <button
+          *ngIf="isUserLoggedIn"
+          class="btn btn-outline-danger fs-4"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

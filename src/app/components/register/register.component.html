@@ -1,0 +1,103 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img
+          src="../../../assets/image/klipartz.com.png"
+          class="img-fluid"
+          alt="Sample image"
+        />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form (ngSubmit)="register()">
+          <div
+            class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
+          >
+            <h3 class="card-title mb-4">Registro</h3>
+          </div>
+          <label class="form-label" for="username">Nombre de usuario</label>
+          <!-- Username input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input
+              type="text"
+              id="username"
+              class="form-control form-control-lg"
+              [(ngModel)]="nombre_usuario"
+              name="nombre_usuario"
+              required
+            />
+          </div>
+          <label class="form-label" for="email">Correo electrónico</label>
+          <!-- Email input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input
+              type="email"
+              id="email"
+              class="form-control form-control-lg"
+              [(ngModel)]="correo_electronico"
+              name="correo_electronico"
+              required
+            />
+          </div>
+
+          <!-- Password input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="password">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control form-control-lg"
+              [(ngModel)]="contrasena"
+              name="contrasena"
+              required
+              [ngClass]="{ 'is-invalid': contrasena && !isPasswordValid() }"
+            />
+
+            <div
+              *ngIf="contrasena && !isPasswordValid()"
+              class="invalid-feedback"
+            >
+              La contraseña debe tener entre 8 y 16 caracteres, incluir al menos
+              una mayúscula y un número.
+            </div>
+          </div>
+
+          <!-- Confirm password input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="confirm_password"
+              >Confirmar contraseña</label
+            >
+            <input
+              type="password"
+              id="confirm_password"
+              class="form-control form-control-lg"
+              [(ngModel)]="confirm_contrasena"
+              name="confirm_contrasena"
+              required
+            />
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg"
+              [disabled]="!isFormValid()"
+              style="padding-left: 2.5rem; padding-right: 2.5rem"
+            >
+              Registrar
+            </button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+              ¿Ya tienes una cuenta?
+              <a
+                href="javascript:void(0)"
+                (click)="goToLogin()"
+                class="link-danger"
+                >Inicia sesión aquí</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

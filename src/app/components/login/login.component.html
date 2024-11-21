@@ -1,0 +1,64 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <!-- Puedes agregar tu imagen aquí, si deseas -->
+        <img
+          src="../../../assets/image/klipartz.com.png"
+          class="img-fluid"
+          alt="Sample image"
+        />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
+            <form (ngSubmit)="login()">
+              <!-- Email input -->
+              <div class="form-group mb-4">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control form-control-lg"
+                  [(ngModel)]="correo_electronico"
+                  name="correo_electronico"
+                  required
+                  placeholder="Introduce tu correo electrónico"
+                />
+              </div>
+
+              <!-- Password input -->
+              <div class="form-group mb-4">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control form-control-lg"
+                  [(ngModel)]="contrasena"
+                  name="contrasena"
+                  required
+                  placeholder="Introduce tu contraseña"
+                />
+              </div>
+
+              <!-- Button -->
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Iniciar sesión
+                </button>
+              </div>
+            </form>
+
+            <p class="text-center mt-3">
+              ¿No tienes una cuenta?
+              <a href="javascript:void(0)" (click)="navigateToRegister()"
+                >Regístrate aquí</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

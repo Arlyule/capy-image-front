@@ -1,0 +1,186 @@
+<div class="container mt-5">
+  <!-- Barra de herramientas con buscador y filtros -->
+  <div class="d-flex justify-content-between mb-3">
+    <!-- Buscador -->
+    <input
+      type="text"
+      class="form-control me-3"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="busqueda"
+      (input)="onBusquedaChange()"
+      style="max-width: 300px"
+    />
+
+    <!-- Dropdown de filtros -->
+    <div class="dropdown me-3">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="filtroDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Filtrar imágenes
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="filtroDropdown">
+        <li>
+          <button
+            class="dropdown-item"
+            (click)="filtroSeleccionado = 'todas'; aplicarFiltro()"
+          >
+            Todas las imágenes
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item"
+            (click)="filtroSeleccionado = 'mis-imagenes'; aplicarFiltro()"
+          >
+            Mis imágenes
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item"
+            (click)="filtroSeleccionado = 'fecha'; aplicarFiltro()"
+          >
+            Más recientes
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Botón "Subir Imagen" -->
+    <button
+      *ngIf="isTokenAvailable"
+      class="btn btn-primary"
+      (click)="router.navigate(['/subir-imagen'])"
+    >
+      Subir Imagen
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <!-- Si no hay imágenes, muestra un mensaje en el centro -->
+      <div
+        *ngIf="imagenesFiltradas.length === 0 && !loading"
+        class="text-center mt-5"
+      >
+        <h4>Sin imágenes</h4>
+      </div>
+
+      <!-- Spinner de carga -->
+      <div *ngIf="loading" class="text-center mt-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p>Cargando imágenes...</p>
+      </div>
+
+      <!-- Contenido de imágenes cargadas -->
+      <div *ngIf="!loading">
+        <div class="row">
+          <div class="col-4" *ngFor="let imagen of paginatedImages">
+            <!-- Card con imagen -->
+            <div class="card mb-3">
+              <img
+                [src]="imagen.imagen_base64"
+                alt="Imagen"
+                class="card-img-top"
+                style="max-width: 100%; height: auto"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  <span>{{ imagen.nombre_archivo }}</span>
+                </h5>
+
+                <!-- Botón de ver comentarios -->
+                <button
+                  class="btn btn-info"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#comentariosCollapse' + imagen.id"
+                  aria-expanded="false"
+                  [attr.aria-controls]="'comentariosCollapse' + imagen.id"
+                >
+                  {{
+                    imagen.comentarios.length > 0
+                      ? "Ver comentarios"
+                      : "Sin comentarios"
+                  }}
+                </button>
+
+                <!-- Botón de eliminar imagen (solo visible si es la imagen del usuario) -->
+                <button
+                  *ngIf="imagen.usuario_id === userId"
+                  class="btn btn-danger mt-2"
+                  (click)="eliminarImagen(imagen.id)"
+                >
+                  Eliminar Imagen
+                </button>
+
+                <!-- Colapso con los comentarios -->
+                <div
+                  class="collapse mt-3"
+                  [id]="'comentariosCollapse' + imagen.id"
+                >
+                  <div class="card card-body">
+                    <ul class="list-group">
+                      <li
+                        class="list-group-item"
+                        *ngFor="let comentario of imagen.comentarios"
+                      >
+                        <strong>{{ comentario.comentario_nombre }}:</strong>
+                        {{ comentario.contenido }} <br />
+                        <small>{{
+                          comentario.comentario_fecha | date : "short"
+                        }}</small>
+                      </li>
+                    </ul>
+                    <div class="mt-3">
+                      <input
+                        *ngIf="isTokenAvailable"
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="nuevoComentario"
+                        placeholder="Escribe un comentario"
+                      />
+                      <button
+                        *ngIf="isTokenAvailable"
+                        class="btn btn-primary mt-2"
+                        (click)="agregarComentario(imagen.id)"
+                      >
+                        Agregar Comentario
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Botón para cambiar el nombre de la imagen -->
+                <button
+                  *ngIf="imagen.usuario_id === userId"
+                  class="btn btn-warning mt-2"
+                  (click)="abrirCambioNombre(imagen)"
+                >
+                  Cambiar nombre de la imagen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paginador de imágenes centrado -->
+        <div class="d-flex justify-content-center mt-4">
+          <mat-paginator
+            [length]="imagenesFiltradas.length"
+            [pageSize]="imagesPerPage"
+            [pageIndex]="currentPage - 1"
+            (page)="onPageChange($event)"
+            showFirstLastButtons
+          ></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

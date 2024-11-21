@@ -1,0 +1,82 @@
+/* Estilo para la navbar */
+.custom-navbar {
+  height: 80px;
+  font-size: 1.2rem;
+  /* Incrementar el tamaño de fuente */
+  background-color: #f8f9fa;
+  /* Color base claro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+  padding: 0 20px;
+  /* Espaciado interno en los laterales */
+  display: flex;
+  align-items: center;
+  /* Centrar verticalmente */
+  justify-content: space-between;
+}
+
+/* Logo y avatar */
+.custom-navbar .navbar-brand {
+  font-weight: bold;
+  color: #5a5a5a;
+  /* Color de texto neutro */
+  margin-left: 15px;
+  /* Separación del borde izquierdo */
+  display: flex;
+  align-items: center;
+  /* Centrar verticalmente el logo y el avatar */
+}
+
+.custom-navbar .user-avatar {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ddd;
+  margin-right: 15px;
+  /* Separación entre la imagen y el título */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.custom-navbar .user-avatar:hover {
+  transform: scale(1.1);
+  border-color: #007bff;
+  /* Efecto hover para destacar */
+}
+
+/* Botones */
+.custom-navbar .btn {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 25px;
+  /* Bordes redondeados */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-navbar .btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.custom-navbar .btn-outline-success:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.custom-navbar .btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.custom-navbar .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Texto del usuario */
+.navbar-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #6c757d;
+  /* Texto más oscuro */
+  margin-right: 10px;
+}

@@ -1,0 +1,94 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Subir Imagen</h3>
+
+      <!-- Formulario solo si no se ha subido la imagen -->
+      <form *ngIf="!isImageUploaded">
+        <!-- Campo para el nombre de la imagen -->
+        <div class="form-group">
+          <label for="imagenNombre">Nombre de la Imagen</label>
+          <input
+            type="text"
+            id="imagenNombre"
+            class="form-control"
+            [(ngModel)]="imagenNombre"
+            name="imagenNombre"
+            required
+          />
+        </div>
+
+        <br />
+
+        <!-- Selección de imagen o mostrar la imagen seleccionada -->
+        <div
+          class="form-group"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+          [ngClass]="{ 'bg-light': dragging }"
+          style="border: 2px dashed #ddd; padding: 20px; text-align: center"
+        >
+          <label for="image" class="d-block mb-3">
+            Arrastra o selecciona una imagen
+          </label>
+
+          <!-- Mostrar el nombre de la imagen seleccionada -->
+          <label
+            *ngIf="selectedFile && !isUploading"
+            for="image"
+            class="d-block mb-3"
+          >
+            Imagen seleccionada: {{ selectedFile.name }}
+          </label>
+
+          <!-- Botón de selección de imagen -->
+          <input
+            *ngIf="!selectedFile"
+            type="file"
+            id="image"
+            class="form-control"
+            (change)="onFileSelected($event)"
+            required
+            style="display: none"
+          />
+          <button
+            *ngIf="!selectedFile"
+            type="button"
+            class="btn btn-secondary"
+            (click)="selectFile()"
+          >
+            Seleccionar Imagen
+          </button>
+
+          <!-- Botón para quitar la imagen seleccionada -->
+          <button
+            *ngIf="selectedFile && !isUploading"
+            type="button"
+            class="btn btn-danger"
+            (click)="quitarImagen()"
+          >
+            Quitar Imagen
+          </button>
+        </div>
+      </form>
+
+      <!-- Barra de progreso de carga -->
+      <mat-progress-bar
+        *ngIf="isUploading"
+        mode="indeterminate"
+        color="primary"
+      ></mat-progress-bar>
+
+      <!-- Botón de subir imagen -->
+      <button
+        type="button"
+        class="btn btn-primary mt-3"
+        (click)="subirImagen()"
+        [disabled]="!imagenNombre || !selectedFile || isUploading"
+      >
+        Subir Imagen
+      </button>
+    </div>
+  </div>
+</div>

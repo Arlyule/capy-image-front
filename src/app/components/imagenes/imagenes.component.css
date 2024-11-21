@@ -1,0 +1,18 @@
+.card-body {
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+.list-group-item {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.collapse.show {
+  background-color: #f1f1f1;
+}
+
+button {
+  width: 100%;
+}
